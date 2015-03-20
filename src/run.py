@@ -25,7 +25,7 @@ def tokenize(text):
 
 # Return the representer, without transforming
 def tf_idf(docs):	
-	tfidf = TfidfVectorizer(tokenizer=tokenize, min_df=3, max_df=0.90, max_features=1000, use_idf=True, sublinear_tf=True);
+	tfidf = TfidfVectorizer(tokenizer=tokenize, min_df=3, max_df=0.90, max_features=1000, use_idf=True, sublinear_tf=True, norm='l2');
 	tfidf.fit(docs);
 	return tfidf;
 
