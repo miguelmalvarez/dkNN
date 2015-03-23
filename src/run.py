@@ -82,5 +82,17 @@ def main():
 
 	representer = tf_idf(train_docs);å
 	
+	classifier = RandomForestClassifier(n_estimators=10);
+	classifier.fit(representer.transform(train_docs).todense(), train_judgements);	
+	#classifier.fit(representer.transform(train_docs), train_judgements);
+
+	print("Model built");
+	decisions = classifier.predict(representer.transform(test_docs).todense());
+
+	print(len(decisions))
+	print(len(test_judgements))
+	print("MicroF1 " + str(f1_score(test_judgements, decisions, average='micro')));
+	print("MacroF1 " + str(f1_score(test_judgements, decisions, average='macro')));
+
 if __name__=='__main__':
     main();
