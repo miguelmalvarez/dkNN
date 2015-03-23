@@ -68,45 +68,19 @@ def main():
 		if doc_id.startswith("train"):		
 			train_docs.append(reuters.raw(doc_id))
 		else:
-			test_docs.append(reuters.raw(doc_id))
+			test_docs.append(reuters.raw(doc_id))	
 
-	print(len(train_docs))
-	print(len(test_docs))
-		
-	representer = tf_idf(train_docs);
-
-	for doc in test_docs:
-		print(feature_values(doc, representer))
-
+	test_judgements = []
+	train_judgements = []
 	
+	for category in retuers.categories():
+		for doc_id in reuters.fileids(category):
+			if doc_id.startswith("train"):
+				train_judgements.append(doc_id)
+			else:
+				test_judgements.append(doc_id)
 
-#	classifier = SVC(C=1, kernel='poly', degree=1);
-  	#classifier = KNeighborsClassifier(n_neighbors=30, p=2, weights='distance');
-	#classifier = RandomForestClassifier(n_estimators=10);
-	#classifier = MultinomialNB()
-
-#	classifier.fit(representer.transform(train_docs).todense(), train_judgements);
-	#classifier.fit(representer.transform(train_docs), train_judgements);
-
-#	print("Model built");
-#	decisions = classifier.predict(representer.transform(test_docs).todense());
-	#decisions = list(map(lambda doc: classifier.predict(representer.transform(doc), test_docs)));
-
-#	print(len(decisions))
-#	print(len(test_judgements))
-#	print("MicroF1 " + str(f1_score(test_judgements, decisions, average='micro')));
-	#print("MacroF1 " + str(f1_score(test_judgements, decisions, average='macro')));
+	representer = tf_idf(train_docs);å
 	
-#	same = 0
-#	for count, decision in enumerate(decisions):
-#		if (decision == test_judgements[count]):
-#			same +=1;
-		#print(decision +" "+test_judgements[count]);
-		#print 
-#	print(str(same));
-
-#	for item,doc in enumerate(test_docs):
-#		print(show_feature_values(doc, tfidf) + "===" + test_judgements[item] + "===" + decisions[item])
-
 if __name__=='__main__':
     main();
