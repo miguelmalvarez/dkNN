@@ -60,6 +60,7 @@ def collection_stats():
 	# Raw document
 	print(reuters.raw(document_id));
 
+# Use Pipeline from sklear to improve this part
 def main():
 	train_docs = []
 	test_docs = []
@@ -84,7 +85,7 @@ def main():
 	
 	classifier = RandomForestClassifier(n_estimators=10);
 	classifier.fit(representer.transform(train_docs).todense(), train_judgements);	
-	#classifier.fit(representer.transform(train_docs), train_judgements);
+	
 
 	print("Model built");
 	decisions = classifier.predict(representer.transform(test_docs).todense());
