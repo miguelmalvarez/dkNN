@@ -59,6 +59,8 @@ def collection_stats():
 
 	# Raw document
 	print(reuters.raw(document_id));
+	#?
+	print(reuters.categories(document_id));
 
 # Use Pipeline from sklear to improve this part
 def main():
@@ -81,19 +83,18 @@ def main():
 			else:
 				test_judgements.append(doc_id)
 
-	representer = tf_idf(train_docs);å
+	representer = tf_idf(train_docs);
 	
 	classifier = RandomForestClassifier(n_estimators=10);
 	classifier.fit(representer.transform(train_docs).todense(), train_judgements);	
 	
-
 	print("Model built");
-	decisions = classifier.predict(representer.transform(test_docs).todense());
 
-	print(len(decisions))
-	print(len(test_judgements))
-	print("MicroF1 " + str(f1_score(test_judgements, decisions, average='micro')));
-	print("MacroF1 " + str(f1_score(test_judgements, decisions, average='macro')));
+	# All decisions
+	single_label_decisions = classifier.predict(representer.transform(test_docs).todense());
+
+	# category based decisions
+
 
 if __name__=='__main__':
     main();
